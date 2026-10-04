@@ -3,583 +3,1015 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>VORTEX ARENA — Battle Royale</title>
+<title>NEXUS STRIKE | Battle Arena</title>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap');
+
 *{
   margin:0;
   padding:0;
   box-sizing:border-box;
-  font-family:Arial,Helvetica,sans-serif;
 }
 
-html{scroll-behavior:smooth}
+:root{
+  --cyan:#00eaff;
+  --blue:#3478ff;
+  --dark:#05070b;
+  --panel:#0b1018;
+  --text:#f4f8ff;
+  --muted:#8995a7;
+  --line:rgba(255,255,255,.09);
+}
+
+html{
+  scroll-behavior:smooth;
+}
 
 body{
-  background:#070b12;
-  color:#fff;
+  background:var(--dark);
+  color:var(--text);
+  font-family:Inter,Arial,sans-serif;
   overflow-x:hidden;
+}
+
+h1,h2,h3,.logo,.nav a,.btn{
+  font-family:Orbitron,Arial,sans-serif;
 }
 
 /* ================= NAVBAR ================= */
 
-.navbar{
+nav{
+  height:76px;
   position:fixed;
   top:0;
   left:0;
-  width:100%;
-  height:70px;
+  right:0;
   z-index:1000;
+
   display:flex;
   align-items:center;
   justify-content:space-between;
+
   padding:0 6%;
-  background:rgba(5,8,14,.88);
-  backdrop-filter:blur(15px);
-  border-bottom:1px solid rgba(255,255,255,.08);
+
+  background:rgba(4,6,10,.72);
+  backdrop-filter:blur(18px);
+
+  border-bottom:1px solid var(--line);
 }
 
 .logo{
-  font-size:25px;
+  font-size:22px;
   font-weight:900;
   letter-spacing:2px;
 }
 
-.logo span{
-  color:#00e5ff;
+.logo b{
+  color:var(--cyan);
 }
 
 .nav-links{
   display:flex;
-  gap:28px;
+  gap:32px;
   list-style:none;
 }
 
 .nav-links a{
-  color:#ddd;
   text-decoration:none;
-  font-size:14px;
-  font-weight:bold;
+  color:#aeb8c7;
+  font-size:12px;
+  font-weight:700;
   transition:.25s;
 }
 
 .nav-links a:hover{
-  color:#00e5ff;
+  color:var(--cyan);
 }
 
-.menu-btn{
+.nav-play{
+  padding:11px 20px;
+  color:#001014!important;
+  background:var(--cyan);
+  border-radius:5px;
+}
+
+.mobile-menu{
   display:none;
-  background:none;
-  color:white;
-  border:0;
-  font-size:28px;
+  font-size:27px;
+  cursor:pointer;
 }
 
 /* ================= HERO ================= */
 
 .hero{
   min-height:100vh;
-  display:flex;
-  align-items:center;
-  padding:110px 7% 60px;
   position:relative;
   overflow:hidden;
+
+  display:flex;
+  align-items:center;
+
+  padding:120px 7% 70px;
+
   background:
-  radial-gradient(circle at 75% 40%,rgba(0,229,255,.17),transparent 30%),
-  radial-gradient(circle at 20% 70%,rgba(98,0,255,.14),transparent 30%),
-  #070b12;
+    radial-gradient(circle at 80% 42%,rgba(0,234,255,.18),transparent 25%),
+    radial-gradient(circle at 20% 80%,rgba(52,120,255,.13),transparent 30%),
+    #05070b;
 }
 
-.hero:before{
-  content:"";
+.hero-grid{
   position:absolute;
   inset:0;
+
   background-image:
-  linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
-  linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
-  background-size:45px 45px;
+    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+
+  background-size:55px 55px;
+
   mask-image:linear-gradient(to bottom,black,transparent);
 }
 
 .hero-content{
-  width:55%;
   position:relative;
-  z-index:2;
+  z-index:5;
+  max-width:720px;
 }
 
-.badge{
-  display:inline-block;
-  padding:8px 15px;
-  border:1px solid rgba(0,229,255,.35);
+.status{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+
+  color:var(--cyan);
+  border:1px solid rgba(0,234,255,.3);
+  background:rgba(0,234,255,.05);
+
+  padding:8px 13px;
   border-radius:30px;
-  color:#00e5ff;
-  background:rgba(0,229,255,.06);
-  font-size:12px;
-  font-weight:bold;
-  letter-spacing:1.5px;
-  margin-bottom:20px;
+
+  font-family:Orbitron;
+  font-size:10px;
+  letter-spacing:2px;
+  margin-bottom:25px;
+}
+
+.dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#00ff91;
+  box-shadow:0 0 12px #00ff91;
 }
 
 .hero h1{
-  font-size:clamp(48px,8vw,100px);
+  font-size:clamp(48px,8vw,105px);
   line-height:.9;
   letter-spacing:-4px;
 }
 
 .hero h1 span{
-  color:#00e5ff;
-  text-shadow:0 0 35px rgba(0,229,255,.4);
+  color:transparent;
+  -webkit-text-stroke:1px var(--cyan);
+  text-shadow:0 0 30px rgba(0,234,255,.18);
 }
 
-.hero p{
-  max-width:600px;
-  color:#aeb8c7;
-  font-size:17px;
-  line-height:1.7;
-  margin:25px 0;
+.hero-desc{
+  color:var(--muted);
+  max-width:610px;
+  line-height:1.8;
+  margin:28px 0;
+  font-size:15px;
 }
 
-.buttons{
+.hero-buttons{
   display:flex;
-  gap:14px;
+  gap:13px;
   flex-wrap:wrap;
 }
 
 .btn{
   border:0;
   cursor:pointer;
-  padding:15px 27px;
-  border-radius:8px;
+  text-decoration:none;
+
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+
+  padding:16px 25px;
+
+  font-size:11px;
   font-weight:900;
-  letter-spacing:1px;
+  letter-spacing:1.5px;
+
   transition:.25s;
 }
 
-.primary{
-  color:#001015;
-  background:#00e5ff;
-  box-shadow:0 0 30px rgba(0,229,255,.18);
+.btn-primary{
+  color:#001014;
+  background:var(--cyan);
+  clip-path:polygon(0 0,92% 0,100% 25%,100% 100%,8% 100%,0 75%);
 }
 
-.primary:hover{
+.btn-primary:hover{
   transform:translateY(-3px);
-  box-shadow:0 10px 35px rgba(0,229,255,.3);
+  box-shadow:0 12px 35px rgba(0,234,255,.25);
 }
 
-.secondary{
+.btn-dark{
   color:white;
-  background:#111925;
-  border:1px solid #293747;
+  background:#111720;
+  border:1px solid var(--line);
 }
 
-.secondary:hover{
-  border-color:#00e5ff;
+.btn-dark:hover{
+  border-color:var(--cyan);
 }
 
-.hero-card{
+/* HERO VISUAL */
+
+.hero-visual{
   position:absolute;
-  right:7%;
-  width:390px;
-  height:480px;
-  border-radius:25px;
-  background:
-  linear-gradient(145deg,rgba(0,229,255,.12),rgba(72,32,150,.08)),
-  rgba(15,22,34,.8);
-  border:1px solid rgba(255,255,255,.1);
-  box-shadow:0 30px 100px rgba(0,0,0,.5);
-  transform:rotate(5deg);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
+  right:5%;
+  top:50%;
+  transform:translateY(-50%);
+
+  width:440px;
+  height:550px;
+
+  z-index:3;
 }
 
-.hero-card:before{
-  content:"";
-  width:240px;
-  height:240px;
+.orb{
+  position:absolute;
+  width:380px;
+  height:380px;
+
+  top:75px;
+  left:30px;
+
+  border:1px solid rgba(0,234,255,.25);
   border-radius:50%;
-  background:radial-gradient(circle,#00e5ff,transparent 65%);
-  filter:blur(10px);
-  opacity:.3;
+
+  box-shadow:
+    0 0 80px rgba(0,234,255,.12),
+    inset 0 0 80px rgba(0,234,255,.06);
+
+  animation:rotate 18s linear infinite;
 }
 
-.hero-card-text{
+.orb:before,
+.orb:after{
+  content:"";
   position:absolute;
+  inset:35px;
+  border:1px dashed rgba(0,234,255,.25);
+  border-radius:50%;
+}
+
+.orb:after{
+  inset:90px;
+}
+
+@keyframes rotate{
+  to{transform:rotate(360deg)}
+}
+
+.character{
+  position:absolute;
+  left:125px;
+  top:80px;
+
+  width:190px;
+  height:390px;
+}
+
+.head{
+  position:absolute;
+  top:15px;
+  left:65px;
+
+  width:65px;
+  height:75px;
+
+  border-radius:45% 45% 40% 40%;
+  background:linear-gradient(145deg,#9aa7b5,#252d37);
+
+  border:2px solid #647384;
+}
+
+.head:after{
+  content:"";
+  position:absolute;
+  left:8px;
+  top:22px;
+
+  width:50px;
+  height:16px;
+
+  background:#071018;
+  border:2px solid var(--cyan);
+  box-shadow:0 0 15px rgba(0,234,255,.6);
+}
+
+.body{
+  position:absolute;
+  left:37px;
+  top:78px;
+
+  width:120px;
+  height:210px;
+
+  background:linear-gradient(120deg,#111923,#273341,#10161e);
+
+  clip-path:polygon(25% 0,75% 0,100% 18%,82% 100%,18% 100%,0 18%);
+
+  border:1px solid #435160;
+}
+
+.core{
+  position:absolute;
+  left:50%;
+  top:55px;
+
+  transform:translateX(-50%);
+
+  width:30px;
+  height:30px;
+
+  border-radius:50%;
+  background:var(--cyan);
+
+  box-shadow:
+    0 0 10px var(--cyan),
+    0 0 35px var(--cyan);
+}
+
+.gun{
+  position:absolute;
+
+  width:155px;
+  height:25px;
+
+  right:-65px;
+  top:130px;
+
+  background:#151e28;
+  border:2px solid #4b5968;
+
+  transform:rotate(-8deg);
+}
+
+.gun:before{
+  content:"";
+  position:absolute;
+  width:65px;
+  height:7px;
+
+  right:-55px;
+  top:7px;
+
+  background:#7c8997;
+}
+
+.gun:after{
+  content:"";
+  position:absolute;
+  width:28px;
+  height:12px;
+
+  left:30px;
+  bottom:-12px;
+
+  background:#111820;
+}
+
+.hero-stats{
+  position:absolute;
+  bottom:15px;
+  left:50%;
+  transform:translateX(-50%);
+
+  display:flex;
+  gap:10px;
+}
+
+.stat{
+  min-width:105px;
+  padding:10px;
+
   text-align:center;
+
+  background:rgba(5,8,12,.85);
+  border:1px solid var(--line);
 }
 
-.hero-card-text strong{
+.stat strong{
   display:block;
-  font-size:80px;
+  color:var(--cyan);
+  font-family:Orbitron;
 }
 
-.hero-card-text small{
-  letter-spacing:4px;
-  color:#8b98a9;
+.stat small{
+  color:#718094;
+  font-size:8px;
+  letter-spacing:1px;
 }
 
-/* ================= SECTIONS ================= */
+/* ================= COMMON ================= */
 
 section{
-  padding:90px 7%;
+  padding:105px 7%;
 }
 
-.section-title{
-  text-align:center;
-  margin-bottom:45px;
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  margin-bottom:42px;
 }
 
-.section-title h2{
-  font-size:42px;
+.kicker{
+  color:var(--cyan);
+  font-family:Orbitron;
+  font-size:10px;
+  letter-spacing:3px;
+  margin-bottom:12px;
 }
 
-.section-title p{
-  color:#8793a3;
-  margin-top:10px;
+.section-head h2{
+  font-size:clamp(30px,5vw,52px);
 }
 
-.grid{
+.section-head p{
+  max-width:420px;
+  color:var(--muted);
+  line-height:1.7;
+  font-size:13px;
+}
+
+/* ================= FEATURES ================= */
+
+.features{
+  background:#070a10;
+}
+
+.feature-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:20px;
+  gap:15px;
 }
 
-.card{
-  padding:28px;
-  min-height:200px;
-  background:#0d141e;
-  border:1px solid #1d2937;
-  border-radius:18px;
+.feature{
+  padding:30px;
+  min-height:220px;
+
+  background:linear-gradient(145deg,#0d131c,#080c12);
+
+  border:1px solid var(--line);
+
+  position:relative;
+  overflow:hidden;
+
   transition:.3s;
 }
 
-.card:hover{
-  transform:translateY(-7px);
-  border-color:#00e5ff;
+.feature:hover{
+  transform:translateY(-5px);
+  border-color:rgba(0,234,255,.4);
 }
 
-.icon{
-  font-size:35px;
-  margin-bottom:18px;
+.feature-number{
+  position:absolute;
+  right:20px;
+  top:12px;
+
+  font-family:Orbitron;
+  font-size:45px;
+
+  color:rgba(255,255,255,.035);
 }
 
-.card h3{
-  margin-bottom:10px;
+.feature-icon{
+  font-size:30px;
+  margin-bottom:25px;
 }
 
-.card p{
-  color:#8e9aaa;
-  line-height:1.6;
+.feature h3{
+  font-size:17px;
+  margin-bottom:12px;
 }
 
-.map-card{
-  min-height:270px;
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-end;
-  overflow:hidden;
+.feature p{
+  color:#7d899a;
+  line-height:1.7;
+  font-size:13px;
+}
+
+/* ================= MAP ================= */
+
+.maps{
+  background:#05070b;
+}
+
+.map-grid{
+  display:grid;
+  grid-template-columns:1.5fr 1fr 1fr;
+  gap:15px;
+}
+
+.map{
+  min-height:330px;
   position:relative;
-  background:
-  linear-gradient(transparent 20%,rgba(0,0,0,.9)),
-  radial-gradient(circle at 70% 30%,#1c5360,#0c1920 45%,#080c12);
+  overflow:hidden;
+
+  border:1px solid var(--line);
+
+  display:flex;
+  align-items:end;
+
+  padding:25px;
+
+  transition:.4s;
 }
 
-.map-card:nth-child(2){
-  background:
-  linear-gradient(transparent 20%,rgba(0,0,0,.9)),
-  radial-gradient(circle at 30% 30%,#55420f,#181308 45%,#080c12);
+.map:hover{
+  transform:scale(1.015);
+  border-color:rgba(0,234,255,.5);
 }
 
-.map-card:nth-child(3){
+.map.one{
   background:
-  linear-gradient(transparent 20%,rgba(0,0,0,.9)),
-  radial-gradient(circle at 60% 30%,#293f2b,#0d170f 45%,#080c12);
+    linear-gradient(transparent 20%,#07090dcc),
+    radial-gradient(circle at 60% 30%,#146173,#101c28 35%,#080a0e 70%);
 }
 
-.map-content{
+.map.two{
+  background:
+    linear-gradient(transparent 20%,#07090dcc),
+    radial-gradient(circle at 50% 30%,#66511d,#221a0c 40%,#08090b 70%);
+}
+
+.map.three{
+  background:
+    linear-gradient(transparent 20%,#07090dcc),
+    radial-gradient(circle at 60% 30%,#275632,#101f13 40%,#070a08 70%);
+}
+
+.map-info{
   position:relative;
   z-index:2;
 }
 
-.map-content p{
-  color:#9ca8b6;
+.map-info span{
+  color:var(--cyan);
+  font-family:Orbitron;
+  font-size:9px;
+  letter-spacing:2px;
+}
+
+.map-info h3{
+  margin-top:8px;
+  font-size:24px;
+}
+
+.map-info p{
+  color:#a2adba;
   margin-top:7px;
+  font-size:12px;
+}
+
+/* ================= WEAPONS ================= */
+
+.weapons{
+  background:#080b11;
+}
+
+.weapon-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+
+.weapon{
+  padding:28px;
+  background:#0c121a;
+  border:1px solid var(--line);
+}
+
+.weapon-art{
+  height:145px;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.weapon-shape{
+  width:190px;
+  height:26px;
+  background:linear-gradient(#687786,#1a232e);
+  position:relative;
+  transform:rotate(-5deg);
+}
+
+.weapon-shape:before{
+  content:"";
+  position:absolute;
+  left:35px;
+  bottom:-22px;
+  width:32px;
+  height:30px;
+  background:#141b24;
+  transform:skew(-15deg);
+}
+
+.weapon-shape:after{
+  content:"";
+  position:absolute;
+  right:-70px;
+  top:9px;
+  width:75px;
+  height:7px;
+  background:#3c4856;
+}
+
+.weapon h3{
+  font-size:17px;
+}
+
+.weapon p{
+  color:#758193;
+  font-size:12px;
+  line-height:1.7;
+  margin:10px 0 18px;
+}
+
+.weapon-stats{
+  display:flex;
+  gap:8px;
+}
+
+.weapon-stats span{
+  background:#131b25;
+  padding:7px 9px;
+  color:#8c98a7;
+  font-size:9px;
+  font-family:Orbitron;
+}
+
+/* ================= LEADERBOARD ================= */
+
+.leaderboard{
+  background:#05070b;
+}
+
+.board{
+  max-width:900px;
+  margin:auto;
+  border:1px solid var(--line);
+  background:#090e15;
+}
+
+.row{
+  display:grid;
+  grid-template-columns:70px 1fr 120px 120px;
+  align-items:center;
+
+  padding:18px 22px;
+
+  border-bottom:1px solid var(--line);
+}
+
+.row:last-child{
+  border:0;
+}
+
+.row.head{
+  color:#697587;
+  font-size:10px;
+  font-family:Orbitron;
+}
+
+.rank{
+  font-family:Orbitron;
+  color:var(--cyan);
+}
+
+.player-name{
+  font-weight:700;
+}
+
+.player-name small{
+  display:block;
+  color:#687486;
+  font-size:10px;
+  margin-top:4px;
+}
+
+.score{
+  color:#b5c0cd;
+  font-family:Orbitron;
+  font-size:11px;
+}
+
+/* ================= CTA ================= */
+
+.cta{
+  padding:100px 7%;
+  text-align:center;
+
+  background:
+    radial-gradient(circle,rgba(0,234,255,.13),transparent 45%),
+    #070a0f;
+}
+
+.cta h2{
+  font-size:clamp(35px,6vw,70px);
+}
+
+.cta p{
+  color:#7f8b9d;
+  margin:18px auto 30px;
 }
 
 /* ================= GAME ================= */
 
-#gameSection{
+#gamePage{
   display:none;
   min-height:100vh;
-  padding:95px 2% 25px;
-  background:#030609;
+  padding:100px 2% 30px;
+  background:#030507;
 }
 
-.game-top{
-  max-width:1400px;
+.game-bar{
+  max-width:1300px;
   margin:auto;
+
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:10px 0 15px;
+
+  margin-bottom:15px;
 }
 
-.game-title{
-  font-weight:900;
+.game-label{
+  font-family:Orbitron;
+  font-size:12px;
   letter-spacing:2px;
 }
 
-.back-btn{
-  background:#121a25;
-  color:#fff;
-  border:1px solid #2b3b4d;
+.back-game{
   padding:10px 15px;
-  border-radius:8px;
+  background:#101720;
+  color:white;
+  border:1px solid var(--line);
   cursor:pointer;
 }
 
-.game-wrap{
-  max-width:1400px;
+.game-container{
+  max-width:1300px;
   margin:auto;
   position:relative;
 }
 
-canvas{
-  display:block;
+#gameCanvas{
   width:100%;
-  height:auto;
-  max-height:75vh;
-  background:#17251c;
-  border:1px solid #273847;
-  border-radius:14px;
-  box-shadow:0 25px 70px rgba(0,0,0,.5);
+  display:block;
+
+  background:#16271b;
+
+  border:1px solid #263646;
+  border-radius:8px;
+
+  box-shadow:0 30px 80px rgba(0,0,0,.55);
+
   touch-action:none;
 }
 
-/* GAME HUD */
-
-.hud{
+.game-hud{
   pointer-events:none;
   position:absolute;
   inset:0;
 }
 
-.hud-top{
+.hud-left{
   position:absolute;
-  top:15px;
-  left:15px;
-  right:15px;
-  display:flex;
-  justify-content:space-between;
+  top:18px;
+  left:18px;
+}
+
+.hud-right{
+  position:absolute;
+  top:18px;
+  right:18px;
+  text-align:right;
 }
 
 .hud-box{
-  background:rgba(4,8,12,.75);
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:10px;
-  padding:10px 13px;
+  background:rgba(4,7,11,.78);
   backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.12);
+  padding:11px 14px;
+  min-width:170px;
 }
 
-.health{
-  width:170px;
+.health-label{
+  font-family:Orbitron;
+  font-size:9px;
+  color:#8c98a7;
 }
 
-.bar{
+.health-bar{
+  width:150px;
   height:7px;
-  margin-top:7px;
-  background:#28323b;
-  border-radius:20px;
-  overflow:hidden;
+  margin-top:6px;
+  background:#252d35;
 }
 
-.hp-fill{
-  width:100%;
+.health-fill{
   height:100%;
-  background:#00e676;
+  width:100%;
+  background:#00e58a;
 }
 
-.ammo{
-  font-size:20px;
-  font-weight:900;
+.weapon-label{
+  color:var(--cyan);
+  font-family:Orbitron;
+  font-size:9px;
 }
 
-.weapon-name{
-  color:#00e5ff;
-  font-size:11px;
-  letter-spacing:1px;
+.ammo-count{
+  font-size:22px;
+  font-weight:800;
+  margin-top:3px;
 }
 
-#message{
+#gameMessage{
   position:absolute;
+  top:16%;
   left:50%;
-  top:15%;
   transform:translateX(-50%);
-  font-weight:bold;
-  color:#00e5ff;
-  text-shadow:0 2px 8px #000;
-}
 
-#minimap{
-  position:absolute;
-  right:15px;
-  bottom:15px;
-  width:145px;
-  height:145px;
-  border-radius:50%;
-  background:rgba(5,10,12,.8);
-  border:2px solid rgba(255,255,255,.25);
-}
-
-.controls-info{
-  text-align:center;
-  color:#7d8997;
-  padding:12px;
-  font-size:13px;
-}
-
-/* MOBILE CONTROLS */
-
-.mobile-controls{
-  display:none;
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-}
-
-.joystick{
-  position:absolute;
-  left:25px;
-  bottom:30px;
-  width:125px;
-  height:125px;
-  border:2px solid rgba(255,255,255,.25);
-  border-radius:50%;
-  background:rgba(0,0,0,.18);
-  pointer-events:auto;
-  touch-action:none;
-}
-
-.stick{
-  width:55px;
-  height:55px;
-  position:absolute;
-  left:33px;
-  top:33px;
-  border-radius:50%;
-  background:rgba(0,229,255,.45);
-}
-
-.action-buttons{
-  position:absolute;
-  right:25px;
-  bottom:30px;
-  display:flex;
-  gap:12px;
-  pointer-events:auto;
-}
-
-.action-buttons button{
-  width:65px;
-  height:65px;
-  border-radius:50%;
-  border:1px solid rgba(255,255,255,.25);
   color:white;
-  background:rgba(10,20,30,.75);
-  font-weight:bold;
+  font-family:Orbitron;
+  font-size:16px;
+  letter-spacing:2px;
+
+  text-shadow:0 3px 20px #000;
+}
+
+#miniMap{
+  position:absolute;
+  right:18px;
+  bottom:18px;
+
+  width:135px;
+  height:135px;
+
+  border-radius:50%;
+  border:2px solid rgba(255,255,255,.3);
+  background:rgba(0,0,0,.6);
+}
+
+.mobile-game-controls{
+  display:none;
 }
 
 /* ================= FOOTER ================= */
 
 footer{
-  padding:35px 7%;
+  padding:30px 7%;
+  border-top:1px solid var(--line);
+  color:#5f6b7b;
+  font-size:11px;
   text-align:center;
-  color:#647080;
-  border-top:1px solid #18212c;
 }
 
-footer strong{
-  color:#00e5ff;
+footer b{
+  color:var(--cyan);
 }
 
 /* ================= RESPONSIVE ================= */
 
-@media(max-width:850px){
+@media(max-width:1000px){
+
+  .hero-visual{
+    opacity:.35;
+    right:-100px;
+  }
+
+  .feature-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .map-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .map.one{
+    grid-column:span 2;
+  }
+
+  .weapon-grid{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+@media(max-width:700px){
+
+  nav{
+    height:68px;
+  }
 
   .nav-links{
     display:none;
     position:absolute;
-    top:70px;
+    top:68px;
     left:0;
     right:0;
-    background:#080d14;
-    padding:20px;
+
+    padding:25px;
+
+    background:#070a0f;
+
     flex-direction:column;
     text-align:center;
   }
 
-  .nav-links.active{
+  .nav-links.show{
     display:flex;
   }
 
-  .menu-btn{
+  .mobile-menu{
     display:block;
+  }
+
+  .nav-play{
+    display:none;
   }
 
   .hero{
-    padding-top:120px;
+    padding:115px 6% 70px;
   }
 
-  .hero-content{
-    width:100%;
+  .hero h1{
+    font-size:57px;
   }
 
-  .hero-card{
+  .hero-visual{
     display:none;
   }
 
-  .grid{
-    grid-template-columns:1fr;
-  }
-
-  section{
-    padding:70px 5%;
-  }
-
-  .mobile-controls{
+  .section-head{
     display:block;
   }
 
-  .controls-info{
+  .section-head p{
+    margin-top:15px;
+  }
+
+  .feature-grid,
+  .map-grid,
+  .weapon-grid{
+    grid-template-columns:1fr;
+  }
+
+  .map.one{
+    grid-column:auto;
+  }
+
+  .row{
+    grid-template-columns:45px 1fr 75px;
+  }
+
+  .row .score:last-child{
     display:none;
   }
 
-  canvas{
+  #gamePage{
+    padding:80px 7px 20px;
+  }
+
+  #gameCanvas{
     min-height:65vh;
     object-fit:cover;
   }
 
-  .health{
-    width:120px;
-  }
-}
-
-@media(max-width:480px){
-  .hero h1{
-    font-size:52px;
-  }
-
-  .hero p{
-    font-size:15px;
-  }
-
   .hud-box{
-    padding:7px;
+    min-width:120px;
   }
 
-  .ammo{
-    font-size:15px;
+  .health-bar{
+    width:100px;
+  }
+
+  #miniMap{
+    width:105px;
+    height:105px;
   }
 }
 </style>
@@ -587,602 +1019,285 @@ footer strong{
 
 <body>
 
-<!-- ================= NAVBAR ================= -->
+<!-- ================= NAV ================= -->
 
-<nav class="navbar">
-  <div class="logo">VORTEX<span>ARENA</span></div>
+<nav>
+  <div class="logo">NEXUS <b>STRIKE</b></div>
 
   <ul class="nav-links" id="navLinks">
     <li><a href="#home">HOME</a></li>
     <li><a href="#features">FEATURES</a></li>
     <li><a href="#maps">MAPS</a></li>
-    <li><a href="#arsenal">ARSENAL</a></li>
-    <li><a href="#gameSection">GAME</a></li>
+    <li><a href="#weapons">ARSENAL</a></li>
+    <li><a href="#leaderboard">RANKING</a></li>
+    <li><a class="nav-play" href="javascript:startGame()">PLAY NOW</a></li>
   </ul>
 
-  <button class="menu-btn" onclick="toggleMenu()">☰</button>
+  <div class="mobile-menu" onclick="toggleMenu()">☰</div>
 </nav>
 
-<!-- ================= HOME ================= -->
+<!-- ================= WEBSITE ================= -->
 
-<main id="website">
+<div id="website">
+
+<!-- HERO -->
 
 <section class="hero" id="home">
 
+  <div class="hero-grid"></div>
+
   <div class="hero-content">
 
-    <div class="badge">ONLINE BATTLE ROYALE EXPERIENCE</div>
+    <div class="status">
+      <span class="dot"></span>
+      SERVER ONLINE
+    </div>
 
     <h1>
-      ENTER THE<br>
-      <span>ARENA.</span>
+      DOMINATE<br>
+      THE <span>ZONE.</span>
     </h1>
 
-    <p>
-      Explore a dynamic battlefield, collect equipment,
-      survive the shrinking zone and outplay enemy AI.
-      Vortex Arena is an original browser-based battle royale prototype.
+    <p class="hero-desc">
+      Enter a fast-paced original battle arena. Explore the battlefield,
+      collect equipment, survive the shrinking zone and become the last
+      operative standing.
     </p>
 
-    <div class="buttons">
-      <button class="btn primary" onclick="startGame()">
+    <div class="hero-buttons">
+
+      <button class="btn btn-primary" onclick="startGame()">
         ▶ PLAY NOW
       </button>
 
-      <a class="btn secondary" href="#features">
-        EXPLORE GAME
+      <a class="btn btn-dark" href="#features">
+        EXPLORE ARENA
       </a>
+
     </div>
 
   </div>
 
-  <div class="hero-card">
-    <div class="hero-card-text">
-      <strong>VA</strong>
-      <small>SURVIVAL SYSTEM</small>
+  <!-- ORIGINAL CSS CHARACTER -->
+
+  <div class="hero-visual">
+
+    <div class="orb"></div>
+
+    <div class="character">
+
+      <div class="head"></div>
+
+      <div class="body">
+        <div class="core"></div>
+      </div>
+
+      <div class="gun"></div>
+
     </div>
+
+    <div class="hero-stats">
+
+      <div class="stat">
+        <strong>120</strong>
+        <small>FPS TARGET</small>
+      </div>
+
+      <div class="stat">
+        <strong>18</strong>
+        <small>OPERATIVES</small>
+      </div>
+
+      <div class="stat">
+        <strong>03</strong>
+        <small>WEAPONS</small>
+      </div>
+
+    </div>
+
   </div>
 
 </section>
 
 <!-- FEATURES -->
 
-<section id="features">
+<section class="features" id="features">
 
-  <div class="section-title">
-    <h2>GAME FEATURES</h2>
-    <p>Built as a lightweight browser game with an original visual identity.</p>
+  <div class="section-head">
+
+    <div>
+      <div class="kicker">WHY PLAY</div>
+      <h2>BUILT FOR THE ARENA</h2>
+    </div>
+
+    <p>
+      Everything you need for a compact browser battle experience,
+      presented through a modern gaming interface.
+    </p>
+
   </div>
 
-  <div class="grid">
+  <div class="feature-grid">
 
-    <div class="card">
-      <div class="icon">🗺️</div>
-      <h3>Dynamic Battlefield</h3>
+    <div class="feature">
+      <div class="feature-number">01</div>
+      <div class="feature-icon">⚡</div>
+      <h3>FAST COMBAT</h3>
       <p>
-        Roads, buildings, trees, open areas and a shrinking safe zone
-        create a changing battlefield.
+        Quick movement, aiming and weapon switching keep every encounter
+        active and responsive.
       </p>
     </div>
 
-    <div class="card">
-      <div class="icon">🎯</div>
-      <h3>Combat System</h3>
+    <div class="feature">
+      <div class="feature-number">02</div>
+      <div class="feature-icon">🗺️</div>
+      <h3>OPEN BATTLEFIELD</h3>
       <p>
-        Aim with your mouse or touch controls, switch weapons,
-        reload and fight enemy AI.
+        Move through roads, compounds, trees and structures while the
+        playable zone changes over time.
       </p>
     </div>
 
-    <div class="card">
-      <div class="icon">🎒</div>
-      <h3>Loot System</h3>
+    <div class="feature">
+      <div class="feature-number">03</div>
+      <div class="feature-icon">🤖</div>
+      <h3>AI OPERATIVES</h3>
       <p>
-        Find ammo, armor and equipment around the battlefield
-        to improve your survival chances.
+        Computer-controlled opponents patrol the battlefield and engage
+        when they detect you.
       </p>
     </div>
 
-    <div class="card">
-      <div class="icon">🤖</div>
-      <h3>Enemy AI</h3>
+    <div class="feature">
+      <div class="feature-number">04</div>
+      <div class="feature-icon">🎒</div>
+      <h3>LOOT</h3>
       <p>
-        Enemy bots move around the map and can engage the player
-        when they get close enough.
+        Find health, armor and ammunition around the map to keep your
+        operative prepared.
       </p>
     </div>
 
-    <div class="card">
-      <div class="icon">📱</div>
-      <h3>Mobile Controls</h3>
+    <div class="feature">
+      <div class="feature-number">05</div>
+      <div class="feature-icon">📱</div>
+      <h3>MOBILE READY</h3>
       <p>
-        Touch joystick and action buttons allow the prototype
-        to run on phones and tablets.
+        The website is responsive and the game interface is designed
+        to work on phone screens.
       </p>
     </div>
 
-    <div class="card">
-      <div class="icon">⚡</div>
-      <h3>No Installation</h3>
+    <div class="feature">
+      <div class="feature-number">06</div>
+      <div class="feature-icon">🏆</div>
+      <h3>RANKED STYLE</h3>
       <p>
-        The game runs directly inside the browser and can be hosted
-        with GitHub Pages.
+        A futuristic ranking interface gives the website the feeling of
+        a complete competitive game hub.
       </p>
     </div>
 
   </div>
+
 </section>
 
 <!-- MAPS -->
 
-<section id="maps">
+<section class="maps" id="maps">
 
-  <div class="section-title">
-    <h2>BATTLEFIELD</h2>
-    <p>Three original environments planned for the Vortex universe.</p>
-  </div>
+  <div class="section-head">
 
-  <div class="grid">
-
-    <div class="card map-card">
-      <div class="map-content">
-        <h3>NEON DISTRICT</h3>
-        <p>Dense urban combat zone.</p>
-      </div>
+    <div>
+      <div class="kicker">BATTLEFIELDS</div>
+      <h2>CHOOSE YOUR ZONE</h2>
     </div>
 
-    <div class="card map-card">
-      <div class="map-content">
-        <h3>ASH VALLEY</h3>
-        <p>Open terrain with long sightlines.</p>
-      </div>
-    </div>
-
-    <div class="card map-card">
-      <div class="map-content">
-        <h3>GREEN FRONTIER</h3>
-        <p>Forest roads and hidden compounds.</p>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- ARSENAL -->
-
-<section id="arsenal">
-
-  <div class="section-title">
-    <h2>ARSENAL</h2>
-    <p>Original weapon categories used by the prototype.</p>
-  </div>
-
-  <div class="grid">
-
-    <div class="card">
-      <div class="icon">🔫</div>
-      <h3>RAVEN AR</h3>
-      <p>Balanced automatic rifle for medium-range combat.</p>
-    </div>
-
-    <div class="card">
-      <div class="icon">⚡</div>
-      <h3>VOLT SMG</h3>
-      <p>Fast-firing weapon designed for close encounters.</p>
-    </div>
-
-    <div class="card">
-      <div class="icon">💥</div>
-      <h3>HAMMER SG</h3>
-      <p>Short-range high-impact weapon.</p>
-    </div>
-
-  </div>
-</section>
-
-<!-- CTA -->
-
-<section>
-  <div class="card" style="text-align:center;padding:55px">
-
-    <h2 style="font-size:38px;margin-bottom:15px">
-      READY TO ENTER?
-    </h2>
-
-    <p style="color:#8e9aaa;margin-bottom:25px">
-      Launch the browser game and test the battlefield.
+    <p>
+      Original environments designed for the Nexus Strike universe.
     </p>
 
-    <button class="btn primary" onclick="startGame()">
-      ▶ LAUNCH GAME
-    </button>
-
   </div>
-</section>
 
-</main>
+  <div class="map-grid">
 
-<!-- ================= GAME SECTION ================= -->
-
-<section id="gameSection">
-
-  <div class="game-top">
-
-    <div class="game-title">
-      VORTEX ARENA / LIVE MATCH
+    <div class="map one">
+      <div class="map-info">
+        <span>01 / URBAN</span>
+        <h3>NEON CITY</h3>
+        <p>Close-range streets and dense compounds.</p>
+      </div>
     </div>
 
-    <button class="back-btn" onclick="exitGame()">
-      ← WEBSITE
-    </button>
-
-  </div>
-
-  <div class="game-wrap">
-
-    <canvas id="game" width="1200" height="700"></canvas>
-
-    <div class="hud">
-
-      <div class="hud-top">
-
-        <div class="hud-box health">
-          <div>HEALTH <span id="healthText">100</span></div>
-          <div class="bar">
-            <div class="hp-fill" id="hpFill"></div>
-          </div>
-        </div>
-
-        <div class="hud-box">
-          <div class="weapon-name" id="weaponName">
-            RAVEN AR
-          </div>
-
-          <div class="ammo">
-            <span id="ammoText">30</span>
-            / <span id="reserveText">120</span>
-          </div>
-        </div>
-
+    <div class="map two">
+      <div class="map-info">
+        <span>02 / DESERT</span>
+        <h3>ASH VALLEY</h3>
+        <p>Open terrain and long sightlines.</p>
       </div>
+    </div>
 
-      <div id="message"></div>
-
-      <canvas id="minimap" width="145" height="145"></canvas>
-
-      <div class="mobile-controls">
-
-        <div class="joystick" id="joystick">
-          <div class="stick" id="stick"></div>
-        </div>
-
-        <div class="action-buttons">
-          <button id="shootBtn">FIRE</button>
-          <button id="reloadBtn">RLD</button>
-        </div>
-
+    <div class="map three">
+      <div class="map-info">
+        <span>03 / FOREST</span>
+        <h3>GREEN FRONT</h3>
+        <p>Natural cover and hidden routes.</p>
       </div>
-
     </div>
 
   </div>
 
-  <div class="controls-info">
-    Desktop: WASD = Move · Mouse = Aim · Left Click = Fire · R = Reload · 1/2/3 = Weapon
-  </div>
-
 </section>
 
-<footer>
-  <strong>VORTEX ARENA</strong> — Original browser battle royale prototype.
-</footer>
-
-
-<script>
-
-/* =========================================================
-   VORTEX ARENA
-   ORIGINAL BROWSER GAME
-========================================================= */
-
-const canvas = document.getElementById("game");
-const ctx = canvas.getContext("2d");
-
-const mini = document.getElementById("minimap");
-const mctx = mini.getContext("2d");
-
-const W = canvas.width;
-const H = canvas.height;
-
-let running = false;
-let gameOver = false;
-let win = false;
-
-let camera = {x:0,y:0};
-
-const world = {
-  width:2400,
-  height:1800
-};
-
-const keys = {};
-
-let mouse = {
-  x:600,
-  y:350,
-  down:false
-};
-
-let mobileMove = {
-  x:0,
-  y:0
-};
+<!-- WEAPONS -->
 
-const player = {
-  x:1200,
-  y:900,
-  radius:18,
-  speed:3.2,
-  health:100,
-  armor:40,
-  angle:0,
-  weapon:0,
-  fireTimer:0,
-  reloadTimer:0,
-  reloading:false
-};
-
-const weapons = [
-
-  {
-    name:"RAVEN AR",
-    damage:22,
-    fireRate:115,
-    magazine:30,
-    ammo:30,
-    reserve:120,
-    range:650
-  },
+<section class="weapons" id="weapons">
 
-  {
-    name:"VOLT SMG",
-    damage:14,
-    fireRate:70,
-    magazine:40,
-    ammo:40,
-    reserve:160,
-    range:430
-  },
+  <div class="section-head">
 
-  {
-    name:"HAMMER SG",
-    damage:45,
-    fireRate:480,
-    magazine:6,
-    ammo:6,
-    reserve:36,
-    range:250
-  }
+    <div>
+      <div class="kicker">ARSENAL</div>
+      <h2>CHOOSE YOUR LOADOUT</h2>
+    </div>
 
-];
+    <p>
+      Three original weapon classes are available in the browser prototype.
+    </p>
 
-const bullets = [];
-const enemies = [];
-const loot = [];
-const obstacles = [];
+  </div>
 
-let zone = {
-  x:1200,
-  y:900,
-  radius:820,
-  target:430
-};
+  <div class="weapon-grid">
 
-let particles = [];
+    <div class="weapon">
 
-/* ================= MENU ================= */
+      <div class="weapon-art">
+        <div class="weapon-shape"></div>
+      </div>
 
-function toggleMenu(){
-  document.getElementById("navLinks").classList.toggle("active");
-}
+      <h3>RAVEN AR</h3>
 
-function startGame(){
+      <p>
+        Balanced automatic rifle designed for medium-range engagements.
+      </p>
 
-  document.getElementById("website").style.display="none";
-  document.getElementById("gameSection").style.display="block";
+      <div class="weapon-stats">
+        <span>DAMAGE 22</span>
+        <span>MAG 30</span>
+      </div>
 
-  window.scrollTo(0,0);
+    </div>
 
-  resetGame();
+    <div class="weapon">
 
-  running=true;
-  gameOver=false;
+      <div class="weapon-art">
+        <div class="weapon-shape" style="width:150px"></div>
+      </div>
 
-  requestAnimationFrame(gameLoop);
-}
+      <h3>VOLT SMG</h3>
 
-function exitGame(){
+      <p>
+        Compact automatic weapon with a high fire rate for close combat.
+      </p>
 
-  running=false;
-
-  document.getElementById("gameSection").style.display="none";
-  document.getElementById("website").style.display="block";
-
-  window.scrollTo(0,0);
-}
-
-/* ================= RESET ================= */
-
-function resetGame(){
-
-  player.x=1200;
-  player.y=900;
-  player.health=100;
-  player.armor=40;
-  player.weapon=0;
-  player.angle=0;
-
-  weapons.forEach(w=>{
-    w.ammo=w.magazine;
-  });
-
-  bullets.length=0;
-  enemies.length=0;
-  loot.length=0;
-  obstacles.length=0;
-  particles.length=0;
-
-  zone.radius=820;
-
-  createMap();
-  createEnemies();
-  createLoot();
-
-  updateHUD();
-}
-
-/* ================= MAP ================= */
-
-function createMap(){
-
-  /* Buildings */
-
-  for(let i=0;i<26;i++){
-
-    let w=100+Math.random()*170;
-    let h=80+Math.random()*130;
-
-    let x=100+Math.random()*(world.width-w-200);
-    let y=100+Math.random()*(world.height-h-200);
-
-    if(Math.hypot(x+50-1200,y+50-900)<250){
-      i--;
-      continue;
-    }
-
-    obstacles.push({
-      x,y,w,h,
-      type:"building"
-    });
-  }
-
-  /* Trees */
-
-  for(let i=0;i<70;i++){
-
-    let x=40+Math.random()*(world.width-80);
-    let y=40+Math.random()*(world.height-80);
-
-    if(Math.hypot(x-1200,y-900)<200){
-      i--;
-      continue;
-    }
-
-    obstacles.push({
-      x,y,
-      r:18+Math.random()*10,
-      type:"tree"
-    });
-  }
-
-}
-
-/* ================= ENEMIES ================= */
-
-function createEnemies(){
-
-  for(let i=0;i<18;i++){
-
-    let e;
-
-    do{
-
-      e={
-        x:100+Math.random()*(world.width-200),
-        y:100+Math.random()*(world.height-200),
-        radius:17,
-        health:100,
-        maxHealth:100,
-        speed:1.1+Math.random()*.7,
-        angle:0,
-        fireTimer:Math.random()*1000,
-        alive:true
-      };
-
-    }while(Math.hypot(e.x-player.x,e.y-player.y)<350);
-
-    enemies.push(e);
-  }
-}
-
-/* ================= LOOT ================= */
-
-function createLoot(){
-
-  const types=["ammo","armor","health"];
-
-  for(let i=0;i<35;i++){
-
-    loot.push({
-      x:100+Math.random()*(world.width-200),
-      y:100+Math.random()*(world.height-200),
-      type:types[Math.floor(Math.random()*types.length)],
-      taken:false
-    });
-
-  }
-}
-
-/* ================= INPUT ================= */
-
-window.addEventListener("keydown",e=>{
-
-  keys[e.key.toLowerCase()]=true;
-
-  if(e.key.toLowerCase()==="r"){
-    reload();
-  }
-
-  if(e.key==="1") switchWeapon(0);
-  if(e.key==="2") switchWeapon(1);
-  if(e.key==="3") switchWeapon(2);
-
-});
-
-window.addEventListener("keyup",e=>{
-  keys[e.key.toLowerCase()]=false;
-});
-
-canvas.addEventListener("mousemove",e=>{
-
-  const rect=canvas.getBoundingClientRect();
-
-  mouse.x=(e.clientX-rect.left)*(W/rect.width);
-  mouse.y=(e.clientY-rect.top)*(H/rect.height);
-
-});
-
-canvas.addEventListener("mousedown",()=>{
-  mouse.down=true;
-});
-
-window.addEventListener("mouseup",()=>{
-  mouse.down=false;
-});
-
-canvas.addEventListener("contextmenu",e=>e.preventDefault());
-
-/* ================= MOBILE ================= */
-
-const joystick=document.getElementById("joystick");
-const stick=document.getElementById("stick");
-
-let joyActive=false;
-
-joystick.addEventListener("touchstart",e=>{
-  joyActive=true;
-  updateJoystick(e.touches[0]);
-},{passive:true});
-
-joystick.addEventListener("touchmove",e=>{
-  if(joyA
+      <div class="weapon-stats"
